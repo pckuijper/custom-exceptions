@@ -1,0 +1,77 @@
+deptrac:
+  paths:
+    - src
+
+  analyser:
+    types:
+      - "class"
+
+  layers:
+    - name: Base_Php_Exceptions
+      collectors:
+        - type: className
+          value: ^Exception$
+        - type: className
+          value: ^LogicException$
+        - type: className
+          value: ^BadFunctionCallException$
+        - type: className
+          value: ^BadMethodCallException$
+        - type: className
+          value: ^DomainException$
+        - type: className
+          value: ^InvalidArgumentException$
+        - type: className
+          value: ^LengthException$
+        - type: className
+          value: ^OutOfRangeException$
+        - type: className
+          value: ^RuntimeException$
+        - type: className
+          value: ^OutOfBoundsException$
+        - type: className
+          value: ^OverflowException$
+        - type: className
+          value: ^RangeException$
+        - type: className
+          value: ^UnderflowException$
+        - type: className
+          value: ^UnexpectedValueException$
+
+    - name: Acme_Base_Exceptions
+      collectors:
+        - type: className
+          value: ^Acme\\Exception
+
+    - name: Acme_Specific_Exceptions
+      collectors:
+        - type: bool
+          must:
+             - type: className
+               value: Acme\\.*Exception
+          must_not:
+             - type: className
+               value: Acme\\Exception\\.*
+
+    - name: Acme
+      collectors:
+        - type: bool
+          must:
+             - type: className
+               value: Acme\\.*
+          must_not:
+             - type: className
+               value: Acme\\Exception\\.*
+             - type: className
+               value: .*Exception
+
+  ruleset:
+    Acme_Base_Exceptions:
+      - Base_Php_Exceptions
+
+    Acme_Specific_Exceptions:
+      - Acme_Base_Exceptions
+
+    Acme:
+      - Acme_Base_Exceptions
+      - Acme_Specific_Exceptions

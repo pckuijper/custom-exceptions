@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+./vendor/bin/deptrac debug:layer --config-file deptrac.exceptions.yml
+./vendor/bin/deptrac --config-file deptrac.exceptions.yml
