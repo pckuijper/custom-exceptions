@@ -1,3 +1,9 @@
+services:
+  - class: Acme\CustomRule
+    tags:
+      - { name: kernel.event_subscriber }
+
+
 deptrac:
   paths:
     - src
