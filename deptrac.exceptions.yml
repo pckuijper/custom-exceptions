@@ -1,3 +1,8 @@
+services:
+  - class: Acme\CustomExceptionRule
+    tags:
+      - { name: kernel.event_subscriber }
+
 deptrac:
   paths:
     - src
