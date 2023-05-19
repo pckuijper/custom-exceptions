@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-php ./vendor/qossmic/deptrac/deptrac.php debug:layer --config-file deptrac.exceptions.yml
-php ./vendor/qossmic/deptrac/deptrac.php --config-file deptrac.exceptions.yml
+php deptrac debug:layer --config-file deptrac.exceptions.yml
+php deptrac --config-file deptrac.exceptions.yml

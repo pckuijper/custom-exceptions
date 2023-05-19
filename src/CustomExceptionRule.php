@@ -8,9 +8,8 @@ use Exception;
 use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
 use Qossmic\Deptrac\Contract\Ast\DependencyType;
 use RuntimeException;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class CustomExceptionRule implements EventSubscriberInterface
+final class CustomExceptionRule
 {
     private const EXCEPTIONS = [
         RuntimeException::class,
@@ -22,14 +21,7 @@ final class CustomExceptionRule implements EventSubscriberInterface
         self::class
     ];
 
-    public static function getSubscribedEvents()
-    {
-        return [
-            ProcessEvent::class => 'onProcessEvent'
-        ];
-    }
-
-    public function onProcessEvent(ProcessEvent $event)
+    public function __invoke(ProcessEvent $event)
     {
         $dependency = $event->dependency;
 

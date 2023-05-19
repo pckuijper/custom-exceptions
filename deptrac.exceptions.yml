@@ -1,7 +1,7 @@
 services:
   - class: Acme\CustomExceptionRule
     tags:
-      - { name: kernel.event_subscriber }
+      - { name: kernel.event_listener, event: Qossmic\Deptrac\Contract\Analyser\ProcessEvent }
 
 deptrac:
   paths:
