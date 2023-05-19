@@ -23,7 +23,7 @@ final class CustomExceptionRule
 
     public function __invoke(ProcessEvent $event)
     {
-        $dependency = $event->dependency;
+        $dependency = $event->getDependency();
 
         if ($this->isDependerAllowed($dependency->getDepender()->toString())) {
             $event->stopPropagation();
