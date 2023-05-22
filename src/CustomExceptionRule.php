@@ -6,7 +6,6 @@ namespace Acme;
 
 use Exception;
 use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
-use Qossmic\Deptrac\Contract\Ast\DependencyType;
 use RuntimeException;
 
 final class CustomExceptionRule
@@ -23,20 +22,19 @@ final class CustomExceptionRule
 
     public function __invoke(ProcessEvent $event)
     {
-        $dependency = $event->dependency;
+        $dependency = $event->getDependency();
 
         if ($this->isDependerAllowed($dependency->getDepender()->toString())) {
             $event->stopPropagation();
         }
 
-        if ($dependency->getType() !== DependencyType::INHERIT) {
+        if (strpos($dependency->getDepender()->toString(), 'Exception') === false) {
             return;
         }
 
         if(in_array($dependency->getDependent()->toString(), self::EXCEPTIONS, true)) {
             $event->stopPropagation();
         }
-
     }
 
     private function isDependerAllowed(string $depender): bool
